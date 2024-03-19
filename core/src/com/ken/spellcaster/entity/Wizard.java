@@ -16,7 +16,7 @@ public class Wizard extends ControlEntity {
     public final Gesture rightGesture;
     public DataChangeListener listener = null;
     private final Array<Monster> monsters; // 用的是LibGDX的Array来存储当前Wizard控制的monster，更厉害
-    public int monsterNO = 1;
+    public int monsterNO = 1; // test
     public String lastLeftGesture;
     public String lastRightGesture;
 
