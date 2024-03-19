@@ -1,0 +1,42 @@
+cDPW:Dispel magic
+cSWWS:Summon elemental
+cw:Magic mirror
+DFFDD:Lightning bolt
+DFPW:Cure heavy wounds
+DFW:Cure light wounds
+DPP:Amnesia
+DSF:Confusion
+DSFFFc:Disease
+DWFFd:Blindness
+DWSSSP:Delayed effect
+DWWFWc:Raise dead
+DWWFWD:Poison
+FFF:Paralysis
+FPSFW:Summon troll
+FSSDD:Fireball
+P:Shield
+p:Surrender
+PDWP:Remove enchantment
+PPws:Invisibility
+PSDD:Charm monster
+PSDF:Charm person
+PSFW:Summon ogre
+PWPFSSSD:Finger of death
+PWPWWc:Haste
+SD:Missile
+SFW:Summon goblin
+SPF:Anti-spell
+SPFPSDW:Permanency
+SPPc:Time stop
+SSFP:Resist cold
+SWD:Fear
+SWWc:Fire storm
+WDDc:Lightning bolt
+WFP:Cause light wounds
+WFPSFW:Summon giant
+WPFD:Cause heavy wounds
+WPP:Counter-spell
+WSSc:Ice storm
+WWFP:Resist heat
+WWP:Protection from evil
+WWS:Counter-spell

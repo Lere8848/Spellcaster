@@ -1,0 +1,605 @@
+@startuml
+class com.ken.spellcaster.effects.enchantment.BlindnessEffect {
++ void actionInRange(ControlEntity)
++ void removeEffect(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.damaging.FireStormSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.Gesture {
+- String gestureStack
+- ControlEntity caster
++ boolean isHide
++ void pushGesture(String)
++ void clearGesture()
++ Array<BaseSpell> genSpell(String)
++ String str()
++ String replaceWithAsterisk(String)
++ String toString()
+}
+
+
+class com.ken.spellcaster.spells.enchantment.PoisonSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.CharmMonsterSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.widget.GestureButton {
+}
+class com.ken.spellcaster.spells.enchantment.DiseaseSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.InvisibilityEffect {
++ void actionInRange(ControlEntity)
++ void removeEffect(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.ResistColdEffect {
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+class com.ken.spellcaster.spells.protection.RemoveEnchantmentSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.protection.RemoveEnchantmentEffect {
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+class com.ken.spellcaster.TurnManager {
++ MainGame game
++ Wizard left
++ int currentTurn
++ int lastTurn
++ ControlEntity currentEntity
+- boolean isPlayerInput
+- ChangeListener listener
+- boolean isWizardEnd
++ boolean isFinish
++ void restart()
++ void prepareTurn()
++ boolean selectNextControl()
++ void setPlayerInput(boolean)
++ void selectCurrentEntity(ControlEntity)
++ boolean control(boolean)
++ void applyAllSpell()
++ void nextTurn()
++ void log(String)
++ void lockChooseLabel(Wizard,String,String)
++ void unLockChooseLabel()
++ void lockChooseNoCDFS(Wizard)
++ void unlockChooseNoCDFS()
++ Array<ControlEntity> getAllTarget()
++ Array<ControlEntity> getOtherTarget(ControlEntity)
++ Array<ControlEntity> getPlayerTarget()
++ Array<ControlEntity> getCPUTarget()
++ Wizard getLeft()
++ Wizard getRight()
+}
+
+
+interface com.ken.spellcaster.TurnManager$ChangeListener {
+~ void onGetLog(String)
+}
+
+class com.ken.spellcaster.AIInput {
+~ {static} String leftChooseLabel
+~ {static} String rightChooseLabel
+~ {static} boolean isLockChooseLabel
+~ {static} boolean isChooseNoCDFS
+~ {static} String[] array
+~ {static} Array<String> gesture
+~ {static} String[] arrayNoCDFS
+~ {static} Array<String> gestureNoCDFS
+~ {static} String leftTargetGesture
+~ {static} String rightTargetGesture
+~ {static} int lastLeftOverlap
+~ {static} int lastRightOverlap
++ {static} void lockChooseLabel(String,String)
++ {static} void unLockChooseLabel()
++ {static} void lockChooseNoCDFS()
++ {static} void unlockChooseNoCDFS()
++ {static} void setLeftChooseLabel(String)
++ {static} void setRightChooseLabel(String)
++ {static} int overlap(String,String)
++ {static} BaseSpell selectBestSpell(Array<BaseSpell>)
++ {static} String genRandomGesture()
++ {static} String genBestGesture(String)
++ {static} ControlPackage searchControl(ControlEntity,TurnManager)
+}
+
+
+class com.ken.spellcaster.AIInput$ControlPackage {
++ String leftGesture
++ String rightGesture
++ BaseSpell leftSpell
++ BaseSpell rightSpell
++ ControlEntity leftTarget
++ ControlEntity rightTarget
+}
+
+class com.ken.spellcaster.spells.damaging.FireballSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.FearSpell {
++ void action(ControlEntity)
+}
+
+abstract class com.ken.spellcaster.spells.BaseSpell {
+~ String name
++ String gesture
++ SpellType type
+~ boolean isValid
++ ControlEntity caster
++ boolean isGoodForTarget
++ int mirrorCount
++ void invalid()
++ boolean isValid()
++ String toString()
++ boolean equals(Object)
++ void action(ControlEntity)
++ boolean enchantmentNotCounter(ControlEntity,Class<? extends BaseSpell>)
+}
+
+
+enum com.ken.spellcaster.spells.SpellType {
++  PROTECTION
++  SUMMON
++  DAMAGING
++  ENCHANTMENT
++  Non
+}
+
+class com.ken.spellcaster.Monster {
+- int attack
++ ElementType type
++ void control(String,String,BaseSpell,BaseSpell,ControlEntity,ControlEntity)
+}
+
+
+enum com.ken.spellcaster.ElementType {
++  FIRE
++  ICE
++  NONE
+}
+
+class com.ken.spellcaster.spells.protection.CureHeavyWoundsSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.damaging.MissileSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.Wizard {
++ Gesture leftGesture
++ Gesture rightGesture
++ DataChangeListener listener
+- Array<Monster> monsters
++ int monsterNO
++ String lastLeftGesture
++ String lastRightGesture
++ boolean useShortLightningBolt
++ void setHealth(int)
++ Array<BaseSpell> genLeftSpell(String)
++ Array<BaseSpell> genRightSpell(String)
++ Monster hasElement()
++ void startAction()
++ void addEffect(BaseEffect)
++ void setGestureHide(boolean)
++ void updateEffect()
++ void addMonster(Monster)
++ void updateMonster()
++ void clearGesture()
++ void clearMonster()
++ void clearEffect()
++ void clearSpell()
++ void setListener(DataChangeListener)
++ Array<Monster> getMonsters()
++ void control(String,String,BaseSpell,BaseSpell,ControlEntity,ControlEntity)
+- void controlHalf(String,BaseSpell,ControlEntity)
+}
+
+
+interface com.ken.spellcaster.Wizard$DataChangeListener {
++ void onHealthChange(int)
++ void onGestureChange(Gesture,Gesture)
++ void onMonsterChange(Array<Monster>)
++ void onEffectChange(Array<BaseEffect>)
+}
+
+class com.ken.spellcaster.spells.enchantment.AmnesiaSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.AntiSpellSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.protection.CounterSpellEffect {
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+abstract class com.ken.spellcaster.effects.BaseEffect {
+~ String name
++ int duration
++ int startTurn
++ ControlEntity caster
++ boolean isDestroy
++ void action(ControlEntity)
++ void actionInRange(ControlEntity)
++ void action2Spell(ControlEntity,BaseSpell)
++ void actionOnTurnBegin(ControlEntity)
++ void actionOnTurnEnd(ControlEntity)
++ void removeEffect(ControlEntity)
++ String toString()
++ boolean equals(Object)
+}
+
+
+class com.ken.spellcaster.spells.damaging.StabSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.summons.SummonOgreSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.damaging.CauseLightWoundsSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.HasteEffect {
++ void actionInRange(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.ConfusionSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.protection.ShieldSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.damaging.CauseHeavyWoundsSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.HasteSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.ParalysisEffect {
++ void actionInRange(ControlEntity)
+- String cast(String)
++ void actionOnTurnBegin(ControlEntity)
++ void actionOnTurnEnd(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.CharmMonsterEffect {
++ void actionOnTurnBegin(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.protection.DispelMagicEffect {
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+class com.ken.spellcaster.SpellMap {
++ {static} Map<String,String> gestureSpellMap
++ {static} Array<String> getGestureByType(SpellType)
++ {static} Array<String> getAllGesture()
++ {static} BaseSpell findSpell(String,String,ControlEntity)
+}
+
+
+class com.ken.spellcaster.spells.protection.CounterSpellSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.DelayedEffectSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.damaging.FingerOfDeathSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.DelayedEffectEffect {
+~ BaseSpell tmpSpell
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+
+class com.ken.spellcaster.spells.protection.DispelMagicSpell {
++ void action(ControlEntity)
+}
+
+abstract class com.ken.spellcaster.ControlEntity {
++ int currentTurnCount
+~ int health
+~ int fakeHealth
+~ int maxHealth
+~ String name
+~ TurnManager manager
+- Wizard controlWizard
+- Wizard originControlWizard
+~ Array<BaseEffect> effects
+~ Array<BaseEffect> permanencyEffects
++ Array<BaseSpell> currentReceiveSpells
++ Array<BaseSpell> currentTempSpells
++ int getHealth()
++ void setHealth(int)
++ void setFakeHealth(int)
++ void attack(int)
++ void startAction()
++ void applyEffect()
++ void removeEffect(Class<? extends BaseEffect>)
++ void removeAllEffect()
++ void beginEffect()
++ void endEffect()
++ void addSpell(BaseSpell)
++ void addTempSpell(BaseSpell)
++ void applySpell()
++ boolean hasTurn()
++ void cancelTurn()
++ boolean isDead()
++ void addEffect(BaseEffect)
++ void addPermanencyEffect(BaseEffect)
++ void updateEffect()
++ Array<ControlEntity> getOtherTarget()
++ Wizard getControlWizard()
++ void setControlWizard(Wizard)
++ void setOriginControlWizard(Wizard)
++ Wizard getOriginControlWizard()
++ TurnManager getManager()
++ String toString()
++ int getCurrentTurn()
++ void control(String,String,BaseSpell,BaseSpell,ControlEntity,ControlEntity)
+}
+
+
+class com.ken.spellcaster.spells.protection.RaiseDeadSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.protection.CureLightWoundsSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.protection.MagicMirrorSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.CharmPersonSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.summons.SummonTrollSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.ResistHeatSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.SurrenderSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.ProtectionFromEvilSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.ConfusionEffect {
++ void actionInRange(ControlEntity)
++ void actionOnTurnBegin(ControlEntity)
++ void actionOnTurnEnd(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.InvisibilitySpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.AmnesiaEffect {
++ void actionInRange(ControlEntity)
++ void actionOnTurnBegin(ControlEntity)
++ void actionOnTurnEnd(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.protection.MagicMirrorEffect {
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+class com.ken.spellcaster.spells.enchantment.TimeStopSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.summons.SummonGoblinSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.ParalysisSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.PermanencySpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.PermanencyEffect {
+~ ControlEntity target
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+
+class com.ken.spellcaster.spells.damaging.LightningBoltSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.ResistColdSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.ResistHeatEffect {
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+class com.ken.spellcaster.MainGame {
+~ Stage stage
+~ Skin skin
++ Label leftHealthLabel
++ Label leftGestureLabel
++ List<Monster> leftMonsterList
++ Label leftEffectLabel
++ Label leftChooseLabel
++ List<BaseSpell> leftSpellList
++ List<ControlEntity> leftTargetList
++ Label logLabel
++ ScrollPane logPane
++ GestureButton leftStabButton
++ TextButton submitButton
++ TurnManager turnManager
+- boolean isLockChooseLabel
+- boolean isChooseNoCDFS
++ void create()
++ void lockChooseLabel(String,String)
++ void unLockChooseLabel()
++ void lockChooseNoCDFS()
++ void unlockChooseNoCDFS()
++ void setLeftChooseLabel(String)
++ void setRightChooseLabel(String)
++ void suitLetter()
++ void updateTargetList()
++ void updateSpellList()
+- ScrollPane scrollPaneX(Widget)
+- ScrollPane scrollPaneY(Widget)
++ void render()
++ void resize(int,int)
++ void dispose()
+}
+
+
+class com.ken.spellcaster.effects.enchantment.DiseaseEffect {
++ void actionInRange(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.summons.SummonGiantSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.protection.ShieldEffect {
++ void action2Spell(ControlEntity,BaseSpell)
+}
+
+class com.ken.spellcaster.effects.enchantment.PoisonEffect {
++ void actionInRange(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.damaging.IceStormSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.summons.SummonElementalSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.damaging.MonsterDamageSpell {
+~ int attack
++ ElementType type
++ void action(ControlEntity)
+}
+
+
+class com.ken.spellcaster.effects.enchantment.FearEffect {
++ void actionOnTurnBegin(ControlEntity)
++ void actionOnTurnEnd(ControlEntity)
+}
+
+class com.ken.spellcaster.spells.enchantment.BlindnessSpell {
++ void action(ControlEntity)
+}
+
+class com.ken.spellcaster.effects.enchantment.CharmPersonEffect {
++ void actionOnTurnBegin(ControlEntity)
++ void actionOnTurnEnd(ControlEntity)
+}
+
+
+
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.BlindnessEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.FireStormSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.PoisonSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.CharmMonsterSpell
+com.badlogic.gdx.scenes.scene2d.ui.TextButton <|-- com.ken.spellcaster.widget.GestureButton
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.DiseaseSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.InvisibilityEffect
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.ResistColdEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.RemoveEnchantmentSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.protection.RemoveEnchantmentEffect
+com.ken.spellcaster.TurnManager +.. com.ken.spellcaster.TurnManager$ChangeListener
+com.ken.spellcaster.AIInput +.. com.ken.spellcaster.AIInput$ControlPackage
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.FireballSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.FearSpell
+com.ken.spellcaster.ControlEntity <|-- com.ken.spellcaster.Monster
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.CureHeavyWoundsSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.MissileSpell
+com.ken.spellcaster.ControlEntity <|-- com.ken.spellcaster.Wizard
+com.ken.spellcaster.Wizard +.. com.ken.spellcaster.Wizard$DataChangeListener
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.AmnesiaSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.AntiSpellSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.protection.CounterSpellEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.StabSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.summons.SummonOgreSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.CauseLightWoundsSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.HasteEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.ConfusionSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.ShieldSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.CauseHeavyWoundsSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.HasteSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.ParalysisEffect
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.CharmMonsterEffect
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.protection.DispelMagicEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.CounterSpellSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.DelayedEffectSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.FingerOfDeathSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.DelayedEffectEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.DispelMagicSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.RaiseDeadSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.CureLightWoundsSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.protection.MagicMirrorSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.CharmPersonSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.summons.SummonTrollSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.ResistHeatSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.SurrenderSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.ProtectionFromEvilSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.ConfusionEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.InvisibilitySpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.AmnesiaEffect
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.protection.MagicMirrorEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.TimeStopSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.summons.SummonGoblinSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.ParalysisSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.PermanencySpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.PermanencyEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.LightningBoltSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.ResistColdSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.ResistHeatEffect
+com.badlogic.gdx.ApplicationAdapter <|-- com.ken.spellcaster.MainGame
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.DiseaseEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.summons.SummonGiantSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.protection.ShieldEffect
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.PoisonEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.IceStormSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.summons.SummonElementalSpell
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.damaging.MonsterDamageSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.FearEffect
+com.ken.spellcaster.spells.BaseSpell <|-- com.ken.spellcaster.spells.enchantment.BlindnessSpell
+com.ken.spellcaster.effects.BaseEffect <|-- com.ken.spellcaster.effects.enchantment.CharmPersonEffect
+@enduml
