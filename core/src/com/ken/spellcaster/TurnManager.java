@@ -13,7 +13,7 @@ import com.ken.spellcaster.entity.Wizard;
 // 回合管理器应当承担收集每回合操作，分配控制器，判断游戏胜负的责任
 public class TurnManager {
     public MainGame game;
-    public Wizard left, right;
+    public Wizard player, cpu;
     public int currentTurn = 1;
     public int lastTurn = 1;
     public ControlEntity currentEntity = null;
@@ -27,11 +27,11 @@ public class TurnManager {
         this.game = game;
         this.listener = listener;
         isFinish = false;
-        this.left = new Wizard(this, "You");
-        this.right = new Wizard(this, "CPU");
+        this.player = new Wizard(this, "You");
+        this.cpu = new Wizard(this, "CPU");
         listener.onGetLog("---The Turn Manager Begin---");
         prepareTurn();
-        currentEntity = left;
+        currentEntity = player;
     }
 
     // 重开游戏
@@ -39,31 +39,31 @@ public class TurnManager {
         isFinish = false;
         currentTurn = 1;
         lastTurn = 1;
-        left.setHealth(14);
-        right.setHealth(14);
-        left.clearMonster();
-        right.clearMonster();
-        left.clearEffect();
-        right.clearEffect();
-        left.clearSpell();
-        right.clearSpell();
-        left.clearGesture();
-        right.clearGesture();
-        left.useShortLightningBolt = false;
-        right.useShortLightningBolt = false;
-        left.monsterNO = 1;
-        right.monsterNO = 1;
+        player.setHealth(14);
+        cpu.setHealth(14);
+        player.clearMonster();
+        cpu.clearMonster();
+        player.clearEffect();
+        cpu.clearEffect();
+        player.clearSpell();
+        cpu.clearSpell();
+        player.clearGesture();
+        cpu.clearGesture();
+        player.useShortLightningBolt = false;
+        cpu.useShortLightningBolt = false;
+        player.monsterNO = 1;
+        cpu.monsterNO = 1;
         game.logLabel.setText("");
     }
 
     public void prepareTurn() {
         isWizardEnd = false;
-        left.startAction();
-        for (Monster monster : left.getMonsters()) {
+        player.startAction();
+        for (Monster monster : player.getMonsters()) {
             monster.startAction();
         }
-        right.startAction();
-        for (Monster monster : right.getMonsters()) {
+        cpu.startAction();
+        for (Monster monster : cpu.getMonsters()) {
             monster.startAction();
         }
     }
@@ -73,14 +73,14 @@ public class TurnManager {
     // 若将 CPU 与玩家宠物顺序更换则无法提前判别技能 会不支持 Amnesia 等技能流程
     // Return: 是否完成全部可控制实体选择
     public boolean selectNextControl() {
-        if (left.hasTurn()) {
-            selectCurrentEntity(left);
-            setPlayerInput(currentEntity.getControlWizard() == left);
+        if (player.hasTurn()) {
+            selectCurrentEntity(player);
+            setPlayerInput(currentEntity.getControlWizard() == player);
             return false;
         }
-        if (right.hasTurn()) {
-            selectCurrentEntity(right);
-            setPlayerInput(currentEntity.getControlWizard() == left);
+        if (cpu.hasTurn()) {
+            selectCurrentEntity(cpu);
+            setPlayerInput(currentEntity.getControlWizard() == player);
             return false;
         }
         // 由于只有法师会释放特殊技能 在法师释放完后便应用技能效果 以便特殊技能正确的影响到怪物
@@ -89,17 +89,17 @@ public class TurnManager {
             applyAllSpell();
             isWizardEnd = true;
         }
-        for (Monster monster : left.getMonsters()) {
+        for (Monster monster : player.getMonsters()) {
             if (monster.hasTurn()) {
                 selectCurrentEntity(monster);
-                setPlayerInput(currentEntity.getControlWizard() == left);
+                setPlayerInput(currentEntity.getControlWizard() == player);
                 return false;
             }
         }
-        for (Monster monster : right.getMonsters()) {
+        for (Monster monster : cpu.getMonsters()) {
             if (monster.hasTurn()) {
                 selectCurrentEntity(monster);
-                setPlayerInput(currentEntity.getControlWizard() == left);
+                setPlayerInput(currentEntity.getControlWizard() == player);
                 return false;
             }
         }
@@ -165,12 +165,12 @@ public class TurnManager {
     // 应用所有技能
     public void applyAllSpell() {
         // 对所有实体应用技能
-        left.applySpell();
-        for (Monster monster : left.getMonsters()) {
+        player.applySpell();
+        for (Monster monster : player.getMonsters()) {
             monster.applySpell();
         }
-        right.applySpell();
-        for (Monster monster : right.getMonsters()) {
+        cpu.applySpell();
+        for (Monster monster : cpu.getMonsters()) {
             monster.applySpell();
         }
     }
@@ -178,7 +178,7 @@ public class TurnManager {
     public void nextTurn() {
         currentTurn++;
         prepareTurn();
-        if (left.getHealth() <= 0 && right.getHealth() > 0) {
+        if (player.getHealth() <= 0 && cpu.getHealth() > 0) {
             isFinish = true;
             Timer.schedule(new Task() {
                 @Override
@@ -187,7 +187,7 @@ public class TurnManager {
                 }
             }, 6);
             log("Game Over. CPU Win. 6 second after restart.");
-        } else if (left.getHealth() > 0 && right.getHealth() <= 0) {
+        } else if (player.getHealth() > 0 && cpu.getHealth() <= 0) {
             isFinish = true;
             Timer.schedule(new Task() {
                 @Override
@@ -196,7 +196,7 @@ public class TurnManager {
                 }
             }, 6);
             log("Game Over. You Win. 6 second after restart.");
-        } else if (left.getHealth() <= 0 && right.getHealth() <= 0) {
+        } else if (player.getHealth() <= 0 && cpu.getHealth() <= 0) {
             isFinish = true;
             Timer.schedule(new Task() {
                 @Override
@@ -211,11 +211,11 @@ public class TurnManager {
     }
 
     public void log(String log) {
-        listener.onGetLog("T" + currentTurn + " : " + log);
+        listener.onGetLog("Turn" + currentTurn + " : " + log);
     }
 
     public void lockChooseLabel(Wizard self, String left, String right) {
-        if (self == this.left) {
+        if (self == this.player) {
             game.lockChooseLabel(left, right);
         } else {
             AIInput.lockChooseLabel(left, right);
@@ -229,7 +229,7 @@ public class TurnManager {
     }
 
     public void lockChooseNoCDFS(Wizard self) {
-        if (self == this.left) {
+        if (self == this.player) {
             game.lockChooseNoCDFS();
         } else {
             AIInput.lockChooseNoCDFS();
@@ -243,9 +243,9 @@ public class TurnManager {
 
     public Array<ControlEntity> getAllTarget() {
         Array<ControlEntity> array = new Array<>();
-        array.add(left, right);
-        array.addAll(left.getMonsters());
-        array.addAll(right.getMonsters());
+        array.add(player, cpu);
+        array.addAll(player.getMonsters());
+        array.addAll(cpu.getMonsters());
         return array;
     }
 
@@ -262,24 +262,24 @@ public class TurnManager {
 
     public Array<ControlEntity> getPlayerTarget() {
         Array<ControlEntity> array = new Array<>();
-        array.add(left);
-        array.addAll(left.getMonsters());
+        array.add(player);
+        array.addAll(player.getMonsters());
         return array;
     }
 
     public Array<ControlEntity> getCPUTarget() {
         Array<ControlEntity> array = new Array<>();
-        array.add(right);
-        array.addAll(right.getMonsters());
+        array.add(cpu);
+        array.addAll(cpu.getMonsters());
         return array;
     }
 
-    public Wizard getLeft() {
-        return left;
+    public Wizard getPlayer() {
+        return player;
     }
 
-    public Wizard getRight() {
-        return right;
+    public Wizard getCpu() {
+        return cpu;
     }
 
     public interface ChangeListener {

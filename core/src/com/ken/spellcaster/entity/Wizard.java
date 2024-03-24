@@ -24,7 +24,7 @@ public class Wizard extends ControlEntity {
     public boolean useShortLightningBolt;
 
     public Wizard(TurnManager manager, String name) {
-        super(manager, name, 14); // 设置Wizard的初始生命值
+        super(manager, name, 15); // 设置Wizard的初始生命值
         leftGesture = new Gesture(this);
         rightGesture = new Gesture(this);
         setOriginControlWizard(this);
@@ -69,6 +69,7 @@ public class Wizard extends ControlEntity {
     @Override
     public void addEffect(BaseEffect effect) {
         super.addEffect(effect);
+        // super.effects = null; test 
         if (listener != null) {
             listener.onEffectChange(effects);
         }

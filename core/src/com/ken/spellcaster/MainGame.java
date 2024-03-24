@@ -41,8 +41,8 @@ public class MainGame extends ApplicationAdapter {
     public void create() {
         stage = new Stage(new FitViewport(1280, 720));
         skin = new Skin(Gdx.files.internal("skin/plain-james-ui.json"));
-        leftHealthLabel = new Label("Your Health: 14", skin);
-        rightHealthLabel = new Label("CPU's Health: 14", skin);
+        leftHealthLabel = new Label("Your Health: 15", skin);
+        rightHealthLabel = new Label("CPU's Health: 15", skin);
         leftGestureLabel = new Label("Left hand: \nRight hand: ", skin);
         rightGestureLabel = new Label("Left hand: \nRight hand: ", skin);
         leftMonsterList = new List<>(skin);
@@ -87,7 +87,7 @@ public class MainGame extends ApplicationAdapter {
             }
         });
 
-        turnManager.getLeft().setListener(new DataChangeListener() {
+        turnManager.getPlayer().setListener(new DataChangeListener() {
             @Override
             public void onHealthChange(int health) {
                 leftHealthLabel.setText("Your Health: " + health);
@@ -114,7 +114,7 @@ public class MainGame extends ApplicationAdapter {
             }
         });
 
-        turnManager.getRight().setListener(new DataChangeListener() {
+        turnManager.getCpu().setListener(new DataChangeListener() {
             @Override
             public void onHealthChange(int health) {
                 rightHealthLabel.setText("CPU's Health: " + health);
@@ -318,13 +318,13 @@ public class MainGame extends ApplicationAdapter {
     public void updateTargetList() {
         boolean leftIsStab = leftChooseLabel.getText().toString().equals("Stab");
         if (leftIsStab) {
-            leftTargetList.setItems(turnManager.getOtherTarget(turnManager.left));
+            leftTargetList.setItems(turnManager.getOtherTarget(turnManager.player));
         } else {
             leftTargetList.setItems(turnManager.getAllTarget());
         }
         boolean rightIsStab = rightChooseLabel.getText().toString().equals("Stab");
         if (rightIsStab) {
-            rightTargetList.setItems(turnManager.getOtherTarget(turnManager.left));
+            rightTargetList.setItems(turnManager.getOtherTarget(turnManager.player));
         } else {
             rightTargetList.setItems(turnManager.getAllTarget());
         }

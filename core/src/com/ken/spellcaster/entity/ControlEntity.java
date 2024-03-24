@@ -22,7 +22,7 @@ public abstract class ControlEntity {
     private Wizard controlWizard;
     // 初始控制者
     private Wizard originControlWizard;
-    Array<BaseEffect> effects;
+    Array<BaseEffect> effects; // 存储受到的Effect
     Array<BaseEffect> permanencyEffects;
     // 每回合接收到的技能 由该实体自行根据状态分类并应用
     public Array<BaseSpell> currentReceiveSpells;
@@ -161,6 +161,8 @@ public abstract class ControlEntity {
         for (BaseSpell spell : currentTempSpells) {
             if (spell.isValid() && spell.type == SpellType.DAMAGING) {
                 spell.action(this);
+                // log(); // 想办法在此处 每次释放技能时，能够生成正确的log
+                // 例如： PROTECTION spell + is protected + caster + from + spell.action
             }
         }
     }

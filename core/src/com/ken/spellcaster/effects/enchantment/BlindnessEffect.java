@@ -14,9 +14,9 @@ public class BlindnessEffect extends BaseEffect {
     public void actionInRange(ControlEntity self) {
         // 只有当玩家时有效果
         if (self instanceof Wizard) {
-            if (self == self.getManager().left) {
-                self.getManager().left.setGestureHide(true);
-                self.getManager().right.setGestureHide(true);
+            if (self == self.getManager().player) {
+                self.getManager().player.setGestureHide(true);
+                self.getManager().cpu.setGestureHide(true);
             }
         }
     }
@@ -25,8 +25,8 @@ public class BlindnessEffect extends BaseEffect {
     public void removeEffect(ControlEntity self) {
         super.removeEffect(self);
         if (self instanceof Wizard) {
-            self.getManager().left.setGestureHide(false);
-            self.getManager().right.setGestureHide(false);
+            self.getManager().player.setGestureHide(false);
+            self.getManager().cpu.setGestureHide(false);
         }
     }
 }
