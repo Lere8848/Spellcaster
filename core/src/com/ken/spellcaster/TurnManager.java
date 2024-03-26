@@ -39,8 +39,8 @@ public class TurnManager {
         isFinish = false;
         currentTurn = 1;
         lastTurn = 1;
-        player.setHealth(15);
-        AI.setHealth(15);
+        player.setHealth(14);
+        AI.setHealth(14);
         player.clearMonster();
         AI.clearMonster();
         player.clearEffect();
