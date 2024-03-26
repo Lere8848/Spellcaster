@@ -118,6 +118,10 @@ public class AIInput {
     }
 
     // 从技能列表中挑选手势最长的第一个技能
+
+    // 在这里做更改，让ai每次挑选的时候不只是挑选最长的技能 加入一些随机性！！！
+
+
     public static BaseSpell selectBestSpell(Array<BaseSpell> spells) {
         int maxPoint = -1;
         BaseSpell bestSpell = null;
