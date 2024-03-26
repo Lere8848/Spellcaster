@@ -240,13 +240,13 @@ public class AIInput {
             // 好效果给己方  坏效果给对方
             ControlEntity leftTarget = null;
             if (leftSpell != null) {
-                leftTarget = leftSpell.isGoodForTarget ? manager.getCPUTarget().random() : manager.getPlayerTarget().random();
+                leftTarget = leftSpell.isGoodForTarget ? manager.getAITarget().random() : manager.getPlayerTarget().random();
                 // 最后一位为小写字母的手势是双手手势
                 leftSpellIsTwo = Character.isLowerCase(leftSpell.gesture.charAt(leftSpell.gesture.length() - 1));
             }
             ControlEntity rightTarget = null;
             if (rightSpell != null) {
-                rightTarget = rightSpell.isGoodForTarget ? manager.getCPUTarget().random() : manager.getPlayerTarget().random();
+                rightTarget = rightSpell.isGoodForTarget ? manager.getAITarget().random() : manager.getPlayerTarget().random();
                 rightSpellIsTwo = Character.isLowerCase(rightSpell.gesture.charAt(rightSpell.gesture.length() - 1));
             }
             // 有双手技能优先双手技能

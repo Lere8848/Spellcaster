@@ -13,8 +13,8 @@ public class InvisibilityEffect extends BaseEffect {
     public void actionInRange(ControlEntity self) {
         // 只有当对手时有效果
         if (self instanceof Wizard) {
-            if (self == self.getManager().cpu) {
-                self.getManager().cpu.setGestureHide(true);
+            if (self == self.getManager().AI) {
+                self.getManager().AI.setGestureHide(true);
             }
         }
     }
@@ -23,7 +23,7 @@ public class InvisibilityEffect extends BaseEffect {
     public void removeEffect(ControlEntity self) {
         super.removeEffect(self);
         if (self instanceof Wizard) {
-            self.getManager().cpu.setGestureHide(false);
+            self.getManager().AI.setGestureHide(false);
         }
     }
 }

@@ -114,7 +114,7 @@ public class MainGame extends ApplicationAdapter {
             }
         });
 
-        turnManager.getCpu().setListener(new DataChangeListener() {
+        turnManager.getAI().setListener(new DataChangeListener() {
             @Override
             public void onHealthChange(int health) {
                 rightHealthLabel.setText("AI Health: " + health);

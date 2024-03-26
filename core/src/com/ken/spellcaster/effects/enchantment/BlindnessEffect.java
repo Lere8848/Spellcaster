@@ -16,7 +16,7 @@ public class BlindnessEffect extends BaseEffect {
         if (self instanceof Wizard) {
             if (self == self.getManager().player) {
                 self.getManager().player.setGestureHide(true);
-                self.getManager().cpu.setGestureHide(true);
+                self.getManager().AI.setGestureHide(true);
             }
         }
     }
@@ -26,7 +26,7 @@ public class BlindnessEffect extends BaseEffect {
         super.removeEffect(self);
         if (self instanceof Wizard) {
             self.getManager().player.setGestureHide(false);
-            self.getManager().cpu.setGestureHide(false);
+            self.getManager().AI.setGestureHide(false);
         }
     }
 }

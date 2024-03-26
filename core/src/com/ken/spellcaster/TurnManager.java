@@ -13,7 +13,7 @@ import com.ken.spellcaster.entity.Wizard;
 // 回合管理器应当承担收集每回合操作，分配控制器，判断游戏胜负的责任
 public class TurnManager {
     public MainGame game;
-    public Wizard player, cpu;
+    public Wizard player, AI;
     public int currentTurn = 1;
     public int lastTurn = 1;
     public ControlEntity currentEntity = null;
@@ -28,7 +28,7 @@ public class TurnManager {
         this.listener = listener;
         isFinish = false;
         this.player = new Wizard(this, "You");
-        this.cpu = new Wizard(this, "CPU");
+        this.AI = new Wizard(this, "AI");
         listener.onGetLog("---The Turn Manager Begin---");
         prepareTurn();
         currentEntity = player;
@@ -39,20 +39,20 @@ public class TurnManager {
         isFinish = false;
         currentTurn = 1;
         lastTurn = 1;
-        player.setHealth(14);
-        cpu.setHealth(14);
+        player.setHealth(15);
+        AI.setHealth(15);
         player.clearMonster();
-        cpu.clearMonster();
+        AI.clearMonster();
         player.clearEffect();
-        cpu.clearEffect();
+        AI.clearEffect();
         player.clearSpell();
-        cpu.clearSpell();
+        AI.clearSpell();
         player.clearGesture();
-        cpu.clearGesture();
+        AI.clearGesture();
         player.useShortLightningBolt = false;
-        cpu.useShortLightningBolt = false;
+        AI.useShortLightningBolt = false;
         player.monsterNO = 1;
-        cpu.monsterNO = 1;
+        AI.monsterNO = 1;
         game.logLabel.setText("");
     }
 
@@ -62,15 +62,15 @@ public class TurnManager {
         for (Monster monster : player.getMonsters()) {
             monster.startAction();
         }
-        cpu.startAction();
-        for (Monster monster : cpu.getMonsters()) {
+        AI.startAction();
+        for (Monster monster : AI.getMonsters()) {
             monster.startAction();
         }
     }
 
     // 搜索下一个待控制的可控制实体
-    // 顺序：玩家 - CPU - 玩家monster - CPU monster
-    // 若将 CPU 与玩家宠物顺序更换则无法提前判别技能 会不支持 Amnesia 等技能流程
+    // 顺序：玩家 - AI - 玩家monster - AI monster
+    // 若将 AI 与玩家宠物顺序更换则无法提前判别技能 会不支持 Amnesia 等技能流程
     // Return: 是否完成全部可控制实体选择
     public boolean selectNextControl() {
         if (player.hasTurn()) {
@@ -78,8 +78,8 @@ public class TurnManager {
             setPlayerInput(currentEntity.getControlWizard() == player);
             return false;
         }
-        if (cpu.hasTurn()) {
-            selectCurrentEntity(cpu);
+        if (AI.hasTurn()) {
+            selectCurrentEntity(AI);
             setPlayerInput(currentEntity.getControlWizard() == player);
             return false;
         }
@@ -96,7 +96,7 @@ public class TurnManager {
                 return false;
             }
         }
-        for (Monster monster : cpu.getMonsters()) {
+        for (Monster monster : AI.getMonsters()) {
             if (monster.hasTurn()) {
                 selectCurrentEntity(monster);
                 setPlayerInput(currentEntity.getControlWizard() == player);
@@ -169,8 +169,8 @@ public class TurnManager {
         for (Monster monster : player.getMonsters()) {
             monster.applySpell();
         }
-        cpu.applySpell();
-        for (Monster monster : cpu.getMonsters()) {
+        AI.applySpell();
+        for (Monster monster : AI.getMonsters()) {
             monster.applySpell();
         }
     }
@@ -178,7 +178,7 @@ public class TurnManager {
     public void nextTurn() {
         currentTurn++;
         prepareTurn();
-        if (player.getHealth() <= 0 && cpu.getHealth() > 0) {
+        if (player.getHealth() <= 0 && AI.getHealth() > 0) {
             isFinish = true;
             Timer.schedule(new Task() {
                 @Override
@@ -186,8 +186,8 @@ public class TurnManager {
                     restart();
                 }
             }, 6);
-            log("Game Over. CPU Win. 6 second after restart.");
-        } else if (player.getHealth() > 0 && cpu.getHealth() <= 0) {
+            log("Game Over. AI Win. 6 second after restart.");
+        } else if (player.getHealth() > 0 && AI.getHealth() <= 0) {
             isFinish = true;
             Timer.schedule(new Task() {
                 @Override
@@ -196,7 +196,7 @@ public class TurnManager {
                 }
             }, 6);
             log("Game Over. You Win. 6 second after restart.");
-        } else if (player.getHealth() <= 0 && cpu.getHealth() <= 0) {
+        } else if (player.getHealth() <= 0 && AI.getHealth() <= 0) {
             isFinish = true;
             Timer.schedule(new Task() {
                 @Override
@@ -243,9 +243,9 @@ public class TurnManager {
 
     public Array<ControlEntity> getAllTarget() {
         Array<ControlEntity> array = new Array<>();
-        array.add(player, cpu);
+        array.add(player, AI);
         array.addAll(player.getMonsters());
-        array.addAll(cpu.getMonsters());
+        array.addAll(AI.getMonsters());
         return array;
     }
 
@@ -267,10 +267,10 @@ public class TurnManager {
         return array;
     }
 
-    public Array<ControlEntity> getCPUTarget() {
+    public Array<ControlEntity> getAITarget() {
         Array<ControlEntity> array = new Array<>();
-        array.add(cpu);
-        array.addAll(cpu.getMonsters());
+        array.add(AI);
+        array.addAll(AI.getMonsters());
         return array;
     }
 
@@ -278,8 +278,8 @@ public class TurnManager {
         return player;
     }
 
-    public Wizard getCpu() {
-        return cpu;
+    public Wizard getAI() {
+        return AI;
     }
 
     public interface ChangeListener {
