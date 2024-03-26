@@ -42,13 +42,13 @@ public class MainGame extends ApplicationAdapter {
         stage = new Stage(new FitViewport(1280, 720));
         skin = new Skin(Gdx.files.internal("skin/plain-james-ui.json"));
         leftHealthLabel = new Label("Your Health: 15", skin);
-        rightHealthLabel = new Label("CPU's Health: 15", skin);
+        rightHealthLabel = new Label("AI Health: 15", skin);
         leftGestureLabel = new Label("Left hand: \nRight hand: ", skin);
         rightGestureLabel = new Label("Left hand: \nRight hand: ", skin);
         leftMonsterList = new List<>(skin);
         rightMonsterList = new List<>(skin);
         leftEffectLabel = new Label("Your Effects: ", skin);
-        rightEffectLabel = new Label("CPU's Effects: ", skin);
+        rightEffectLabel = new Label("AI Effects: ", skin);
         leftChooseLabel = new Label("Skip", skin);
         rightChooseLabel = new Label("Skip", skin);
         leftSpellList = new List<>(skin);
@@ -117,7 +117,7 @@ public class MainGame extends ApplicationAdapter {
         turnManager.getCpu().setListener(new DataChangeListener() {
             @Override
             public void onHealthChange(int health) {
-                rightHealthLabel.setText("CPU's Health: " + health);
+                rightHealthLabel.setText("AI Health: " + health);
             }
 
             @Override
@@ -133,7 +133,7 @@ public class MainGame extends ApplicationAdapter {
 
             @Override
             public void onEffectChange(Array<BaseEffect> effects) {
-                StringBuilder label = new StringBuilder("CPU's Effects: ");
+                StringBuilder label = new StringBuilder("AI Effects: ");
                 for (BaseEffect effect : effects) {
                     label.append(effect).append(" ");
                 }
@@ -147,13 +147,13 @@ public class MainGame extends ApplicationAdapter {
         rootTable.add(rightHealthLabel).width(1200 / 2f).left().pad(8);
         rootTable.row();
         rootTable.add("Your Gesture Stack: ").expandX().left().pad(8);
-        rootTable.add("CPU's Gesture Stack: ").expandX().left().pad(8);
+        rootTable.add("AI Gesture Stack: ").expandX().left().pad(8);
         rootTable.row();
         rootTable.add(leftGesturePane).fill().minHeight(60).left().pad(8);
         rootTable.add(rightGesturePane).fill().minHeight(60).left().pad(8);
         rootTable.row();
         rootTable.add("Your Monsters: ").expandX().left().pad(8);
-        rootTable.add("CPU's Monsters: ").expandX().left().pad(8);
+        rootTable.add("AI Monsters: ").expandX().left().pad(8);
         rootTable.row();
 
         rootTable.add(scrollPaneY(leftMonsterList)).expandX().minWidth(400).maxHeight(80).left().pad(8);
