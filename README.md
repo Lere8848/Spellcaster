@@ -1,12 +1,30 @@
 # Spellcaster
-Spellcaster是一款双人回合制战略棋盘游戏，考验玩家的战略思维和预判能力，由Bartle在1977 年首次提出规则。
+Spellcaster是一款双人回合制战略棋盘游戏，考验玩家的战略思维和预判能力，游戏规则由Bartle在1977 年首次提出。详细游戏规则见该链接：
+https://www.andrew.cmu.edu/user/gc00/reviews/spellcaster.html
 
-详细游戏规则见该链接：https://www.andrew.cmu.edu/user/gc00/reviews/spellcaster.html
+本项目为该游戏的java实现，使用LibGDX引擎。
 
-本项目为该游戏的java实现
+版本信息：
+* JDK：openJDK17 
+* gradle: 7.5.1
+* LibGDX: 12.0.1
+* Android SDK：34
 
-Spellcaster is a two-player turn-based strategy board game that tests players' strategic thinking and anticipation skills, with rules first proposed by Bartle in 1977.
+（此为初步版本README，记得后续更新，加上游戏规则、法术交互那几个word）
+加上界面截图 自定义了哪些规则？
 
-Detailed rules of the game can be found at this link: https://www.andrew.cmu.edu/user/gc00/reviews/spellcaster.html
+## 加上下面这些
 
-This project is a java implementation of the game
+基本运行说明：
+
+
+README文件应提供足够的信息以确保评审能够理解如何启动和运行游戏。这意味着应包括关于如何编译（如果需要的话）、启动游戏的具体步骤，以及任何必要的配置信息或依赖项。
+文档简介：
+
+虽然不需要对整个程序进行深入的文档说明，但README应至少提供一些基础的文档，介绍游戏的主要功能、操作指南以及如何与游戏互动。这应该足够让人了解游戏的基本玩法和目标。
+代码说明：
+
+说话人2指出，虽然不要求提交关于整个程序的详细文档，但在评分时他们会查看代码。因此，建议在README或代码中包含一些基本的注释或说明，帮助理解代码结构和关键部分的功能。
+附加信息：
+
+如果有额外的设置或步骤需要说明，例如如何访问游戏的特定功能或模式，也应在README中提及。
