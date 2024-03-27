@@ -30,7 +30,9 @@ public class AmnesiaEffect extends BaseEffect {
             self.getManager().lockChooseLabel(self.getControlWizard(), ((Wizard) self).lastLeftGesture, ((Wizard) self).lastRightGesture);
             // 此处修改log 添加
             if (!isTake) {
-                log("Being inflicted with Amnesia! next turn can only make the same gestures as before!.");
+                //log("                                       "); 最大长度
+                log("Being inflicted with Amnesia! ");
+                log("can only make the same gesture as before!");
                 isTake = true;
             }
         }

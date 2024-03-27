@@ -13,7 +13,9 @@ public class HasteEffect extends BaseEffect {
     @Override
     public void actionInRange(ControlEntity self) {
         if (turn != self.getCurrentTurn()) {
-            log("Being inflicted with Haste, can attack twice per round.");
+            //log("                                       "); 最大长度
+            log("Being inflicted with Haste");
+            log("can attack twice per round.");
             turn = self.getCurrentTurn();
         }
         // 每回合可以攻击两次

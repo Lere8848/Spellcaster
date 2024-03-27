@@ -16,7 +16,10 @@ public class CharmPersonEffect extends BaseEffect {
         if (self instanceof Wizard) {
             self.setControlWizard((Wizard) caster);
             if (!isTake) {
-                log(String.format("Being inflicted with CharmPerson! the gesture for the next turn will be determined by %s.", caster));
+                //log("                                       "); 最大长度
+                log("Being inflicted with CharmPerson! ");
+                log("the gesture for the next turn");
+                log(String.format("will be determined by %s.", caster));
                 isTake = true;
             }
         }

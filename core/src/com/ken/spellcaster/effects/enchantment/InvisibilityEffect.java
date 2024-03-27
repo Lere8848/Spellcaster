@@ -18,7 +18,9 @@ public class InvisibilityEffect extends BaseEffect {
             if (self == self.getManager().AI) {
                 self.getManager().AI.setGestureHide(true);
                 if (!isTake) {
-                    log("Being inflicted with Invisibility, can NOT see gestures made by your opponent");
+                    //log("                                       "); 最大长度
+                    log("Being inflicted with Invisibility");
+                    log("can NOT see gestures made by opponent");
                     isTake = true;
                 }
             }

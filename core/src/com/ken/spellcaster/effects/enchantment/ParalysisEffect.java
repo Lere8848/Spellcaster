@@ -48,7 +48,10 @@ public class ParalysisEffect extends BaseEffect {
             String lastRight = ((Wizard) self).lastRightGesture;
             self.getManager().lockChooseLabel(self.getControlWizard(), gestureSwitch(lastLeft), gestureSwitch(lastRight));
             if (!isTake) {
-                log("Operation restrictions due to Paralysis.");
+                log("Being inflicted with Paralysis!");
+                log("can only make the same gesture as before!");
+                log("Following gesture will be switched");
+                log("C-->F、S-->D、W-->P");
                 isTake = true;
             }
         }

@@ -20,7 +20,9 @@ public class BlindnessEffect extends BaseEffect {
                 self.getManager().player.setGestureHide(true);
                 self.getManager().AI.setGestureHide(true);
                 if (!isTake) {
-                    log("Being inflicted with Blindness! can NOT see gestures made by your opponent");
+                    //log("                                       "); 最大长度
+                    log("Being inflicted with Blindness!");
+                    log("canNOT see gestures made by your opponent");
                     isTake = true;
                 }
             }

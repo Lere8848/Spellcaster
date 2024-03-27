@@ -15,11 +15,16 @@ public class DiseaseEffect extends BaseEffect {
         int tmpRemain = 6 - (self.getCurrentTurn() - startTurn);
         if (tmpRemain != remainCount) {
             remainCount = tmpRemain;
-            log("Note! Being inflicted with Disease! Only " + remainCount + " rounds remaining until death.");
+            //log("                                       "); 最大长度
+            log("Note! Being inflicted with Disease!");
+            log("Only" + remainCount + " rounds left.");
         }
         // 目标将在 6 回合后死亡
         if (self.getCurrentTurn() - startTurn >= 6) {
-            log("The death knell is ringing! Being inflicted with Disease more than 6 turns, the only choice is DEATH!");
+            //log("                                       "); 最大长度
+            log("The death knell is ringing!");
+            log("Get Disease more than 6 turns");
+            log("the only choice is DEATH!");
             self.setHealth(0);
             removeEffect(self);
         }

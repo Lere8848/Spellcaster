@@ -17,7 +17,9 @@ public class FearEffect extends BaseEffect {
             // 锁定 CDFS 按键 (根据实际操控者决定锁定 AI 还是按钮)
             self.getManager().lockChooseNoCDFS((Wizard) self);
             if (!isTake) {
-                log("Being inflicted with Fear, can NOT use C/D/F/S gestures next turn.");
+                //log("                                       "); 最大长度
+                log("Being inflicted with Fear,");
+                log("can NOT use C/D/F/S gestures next turn.");
                 isTake = true;
             }
         }

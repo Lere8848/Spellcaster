@@ -18,7 +18,9 @@ public class DelayedEffectEffect extends BaseEffect {
         // 储存技能
         tmpSpell = baseSpell;
         if (!isTake) {
-            log(String.format("Thanks to DelayedEffect! The %s spell has been stored for the next turn!.", baseSpell));
+            //log("                                       "); 最大长度
+            log("Thanks to DelayedEffect!");
+            log(String.format("%s spell stored for next turn!.", baseSpell));
             isTake = true;
         }
     }

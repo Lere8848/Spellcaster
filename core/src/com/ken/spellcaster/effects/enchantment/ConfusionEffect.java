@@ -33,7 +33,9 @@ public class ConfusionEffect extends BaseEffect {
             String right = range[MathUtils.random(1, 6) - 1];
             self.getManager().lockChooseLabel(self.getControlWizard(), left, right);
             if (!isTake) {
-                log("being inflicted with Confusion! the next turn gestures will be randomly decided!.");
+                //log("                                       "); 最大长度
+                log("Being inflicted with Confusion!");
+                log("next turn gesture will randomly decide!.");
                 isTake = true;
             }
         }

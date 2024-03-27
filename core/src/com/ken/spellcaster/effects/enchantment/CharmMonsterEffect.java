@@ -17,7 +17,9 @@ public class CharmMonsterEffect extends BaseEffect {
         if (self instanceof Monster) {
             self.setControlWizard((Wizard) caster);
             if (!isTake) {
-                log(String.format("Due to CharmMonster, control transferred to %s. Amazing!", caster));
+                //log("                                       "); 最大长度
+                log("Due to CharmMonster,");
+                log(String.format("control transferred to %s. Amazing!", caster));
                 isTake = true;
             }
         }

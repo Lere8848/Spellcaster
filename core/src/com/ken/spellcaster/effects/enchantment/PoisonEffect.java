@@ -15,11 +15,14 @@ public class PoisonEffect extends BaseEffect {
         int tmpRemain = 6 - (self.getCurrentTurn() - startTurn);
         if (tmpRemain != remainCount) {
             remainCount = tmpRemain;
-            log("Note! Being inflicted with Poison! Only " + remainCount + " rounds remaining until death.");
+            log("Note! Being inflicted with Poison!");
+            log("Only" + remainCount + " rounds left.");
         }
         // 目标将在 6 回合后死亡
         if (self.getCurrentTurn() - startTurn >= 6) {
-            log("The death knell is ringing! Being inflicted with Poison more than 6 turns, the only choice is DEATH!");
+            log("The death knell is ringing!");
+            log("Get Poison more than 6 turns");
+            log("the only choice is DEATH!");
             self.setHealth(0);
             removeEffect(self);
         }
