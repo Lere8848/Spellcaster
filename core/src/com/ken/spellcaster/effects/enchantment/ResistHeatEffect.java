@@ -15,6 +15,7 @@ public class ResistHeatEffect extends BaseEffect {
     public void action2Spell(ControlEntity caster, BaseSpell baseSpell) {
         // 抵挡所有火元素攻击
         if (baseSpell instanceof MonsterDamageSpell && ((MonsterDamageSpell) baseSpell).type == ElementType.FIRE) {
+            defendSpellLog(baseSpell);
             baseSpell.invalid();
         }
     }

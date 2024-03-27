@@ -6,6 +6,8 @@ import com.ken.spellcaster.effects.BaseEffect;
 
 // 失明
 public class BlindnessEffect extends BaseEffect {
+    boolean isTake = false; // 用于判断是否收到改效果影响 如果是 则生成相应log
+
     public BlindnessEffect(int duration, int startTurn, ControlEntity caster) {
         super("Blindness", duration, startTurn, caster);
     }
@@ -17,6 +19,10 @@ public class BlindnessEffect extends BaseEffect {
             if (self == self.getManager().player) {
                 self.getManager().player.setGestureHide(true);
                 self.getManager().AI.setGestureHide(true);
+                if (!isTake) {
+                    log("Being inflicted with Blindness! can NOT see gestures made by your opponent");
+                    isTake = true;
+                }
             }
         }
     }
@@ -27,6 +33,7 @@ public class BlindnessEffect extends BaseEffect {
         if (self instanceof Wizard) {
             self.getManager().player.setGestureHide(false);
             self.getManager().AI.setGestureHide(false);
+            isTake = true;
         }
     }
 }

@@ -16,6 +16,7 @@ public class ShieldEffect extends BaseEffect {
     @Override
     public void action2Spell(ControlEntity caster, BaseSpell baseSpell) {
         if (caster instanceof Monster || baseSpell instanceof MissileSpell || baseSpell instanceof StabSpell) {
+            defendSpellLog(baseSpell);
             baseSpell.invalid();
         }
     }

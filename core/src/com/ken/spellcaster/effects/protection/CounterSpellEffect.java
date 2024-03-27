@@ -15,6 +15,7 @@ public class CounterSpellEffect extends BaseEffect {
     @Override
     public void action2Spell(ControlEntity caster, BaseSpell baseSpell) {
         if (!(baseSpell instanceof DispelMagicSpell) && !(baseSpell instanceof RaiseDeadSpell) && !(baseSpell instanceof FingerOfDeathSpell)) {
+            defendSpellLog(baseSpell);
             baseSpell.invalid();
         }
     }

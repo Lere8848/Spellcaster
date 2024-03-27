@@ -8,6 +8,8 @@ import com.ken.spellcaster.effects.BaseEffect;
 
 // 随机手势效果
 public class ConfusionEffect extends BaseEffect {
+    boolean isTake = false; // 用于判断是否收到改效果影响 如果是 则生成相应log
+
     public ConfusionEffect(int duration, int startTurn, ControlEntity caster) {
         super("Confusion", duration, startTurn, caster);
     }
@@ -30,6 +32,10 @@ public class ConfusionEffect extends BaseEffect {
             String left = range[MathUtils.random(1, 6) - 1];
             String right = range[MathUtils.random(1, 6) - 1];
             self.getManager().lockChooseLabel(self.getControlWizard(), left, right);
+            if (!isTake) {
+                log("being inflicted with Confusion! the next turn gestures will be randomly decided!.");
+                isTake = true;
+            }
         }
     }
 
@@ -37,5 +43,6 @@ public class ConfusionEffect extends BaseEffect {
     public void actionOnTurnEnd(ControlEntity self) {
         // 解锁按键
         self.getManager().unLockChooseLabel();
+        isTake = false;
     }
 }

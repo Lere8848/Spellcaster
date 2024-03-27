@@ -14,6 +14,7 @@ public class RemoveEnchantmentEffect extends BaseEffect {
     public void action2Spell(ControlEntity caster, BaseSpell baseSpell) {
         // 移除所有召唤或附魔技能
         if (baseSpell.type == SpellType.ENCHANTMENT || baseSpell.type == SpellType.SUMMON) {
+            defendSpellLog(baseSpell);
             baseSpell.invalid();
         }
     }

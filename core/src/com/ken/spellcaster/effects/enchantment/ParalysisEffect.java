@@ -7,6 +7,8 @@ import com.ken.spellcaster.entity.Wizard;
 import com.ken.spellcaster.effects.BaseEffect;
 
 public class ParalysisEffect extends BaseEffect {
+    boolean isTake = false; // 用于判断是否收到改效果影响 如果是 则生成相应log
+
     public ParalysisEffect(int duration, int startTurn, ControlEntity caster) {
         super("Paralysis", duration, startTurn, caster);
     }
@@ -21,7 +23,7 @@ public class ParalysisEffect extends BaseEffect {
         }
     }
 
-    private String cast(String origin) {
+    private String gestureSwitch(String origin) {
         switch (origin) {
             case "C":
                 return "F";
@@ -44,7 +46,11 @@ public class ParalysisEffect extends BaseEffect {
         if (self instanceof Wizard) {
             String lastLeft = ((Wizard) self).lastLeftGesture;
             String lastRight = ((Wizard) self).lastRightGesture;
-            self.getManager().lockChooseLabel(self.getControlWizard(), cast(lastLeft), cast(lastRight));
+            self.getManager().lockChooseLabel(self.getControlWizard(), gestureSwitch(lastLeft), gestureSwitch(lastRight));
+            if (!isTake) {
+                log("Operation restrictions due to Paralysis.");
+                isTake = true;
+            }
         }
     }
 
@@ -52,5 +58,6 @@ public class ParalysisEffect extends BaseEffect {
     public void actionOnTurnEnd(ControlEntity self) {
         // 解锁按键
         self.getManager().unLockChooseLabel();
+        isTake = false;
     }
 }

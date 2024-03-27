@@ -63,7 +63,7 @@ public class MainGame extends ApplicationAdapter {
         logLabel.setAlignment(Align.topLeft);
         leftStabButton = new GestureButton("Stab", skin, this, true);
         rightStabButton = new GestureButton("Stab", skin, this, false);
-        submitButton = new TextButton("Submit", skin);
+        submitButton = new TextButton("Next", skin);
 
         turnManager = new TurnManager(this, new ChangeListener() {
             @Override

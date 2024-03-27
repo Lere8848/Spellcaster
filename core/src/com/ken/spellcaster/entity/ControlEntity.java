@@ -22,8 +22,8 @@ public abstract class ControlEntity {
     private Wizard controlWizard;
     // 初始控制者
     private Wizard originControlWizard;
-    Array<BaseEffect> effects; // 存储受到的Effect
-    Array<BaseEffect> permanencyEffects;
+    public Array<BaseEffect> effects; // 存储受到的Effect
+    public Array<BaseEffect> permanencyEffects;
     // 每回合接收到的技能 由该实体自行根据状态分类并应用
     public Array<BaseSpell> currentReceiveSpells;
 

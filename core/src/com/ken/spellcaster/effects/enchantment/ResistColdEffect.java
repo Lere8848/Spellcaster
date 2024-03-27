@@ -15,6 +15,7 @@ public class ResistColdEffect extends BaseEffect {
     public void action2Spell(ControlEntity caster, BaseSpell baseSpell) {
         // 抵挡所有冰元素攻击
         if (baseSpell instanceof MonsterDamageSpell && ((MonsterDamageSpell) baseSpell).type == ElementType.ICE) {
+            defendSpellLog(baseSpell);
             baseSpell.invalid();
         }
     }

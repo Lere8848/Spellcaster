@@ -5,6 +5,8 @@ import com.ken.spellcaster.entity.Wizard;
 import com.ken.spellcaster.effects.BaseEffect;
 
 public class InvisibilityEffect extends BaseEffect {
+    boolean isTake = false; // 用于判断是否收到改效果影响 如果是 则生成相应log
+
     public InvisibilityEffect(int duration, int startTurn, ControlEntity caster) {
         super("Invisibility", duration, startTurn, caster);
     }
@@ -15,6 +17,10 @@ public class InvisibilityEffect extends BaseEffect {
         if (self instanceof Wizard) {
             if (self == self.getManager().AI) {
                 self.getManager().AI.setGestureHide(true);
+                if (!isTake) {
+                    log("Being inflicted with Invisibility, can NOT see gestures made by your opponent");
+                    isTake = true;
+                }
             }
         }
     }
@@ -24,6 +30,7 @@ public class InvisibilityEffect extends BaseEffect {
         super.removeEffect(self);
         if (self instanceof Wizard) {
             self.getManager().AI.setGestureHide(false);
+            isTake = false;
         }
     }
 }

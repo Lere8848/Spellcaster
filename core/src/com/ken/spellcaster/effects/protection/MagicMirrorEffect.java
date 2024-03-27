@@ -15,6 +15,7 @@ public class MagicMirrorEffect extends BaseEffect {
     @Override
     public void action2Spell(ControlEntity caster, BaseSpell baseSpell) {
         if (caster instanceof Wizard && baseSpell.type == SpellType.DAMAGING && !(baseSpell instanceof StabSpell)) {
+            defendSpellLog(baseSpell); // 添加log
             baseSpell.invalid();
             // 防止无限反射导致堆溢出
             // 如果反射次数小于 0 则技能消失 拥有镜子的实体都没有受到伤害
