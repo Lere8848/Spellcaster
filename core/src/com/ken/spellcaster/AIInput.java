@@ -119,7 +119,7 @@ public class AIInput {
 
     // 从技能列表中挑选手势最长的第一个技能
 
-    // 在这里做更改，让ai每次挑选的时候不只是挑选最长的技能 加入一些随机性！！！
+    // 在这里做更改，让ai每次挑选的时候不只是挑选最长的技能 加入一些随机性！！！ 重中之重！
 
 
     public static BaseSpell selectBestSpell(Array<BaseSpell> spells) {
@@ -241,10 +241,10 @@ public class AIInput {
             // 判定双手技能
             boolean leftSpellIsTwo = false;
             boolean rightSpellIsTwo = false;
-            // 好效果给己方  坏效果给对方
+            // 好效果给己方  坏效果给对方   MAX MIN部分
             ControlEntity leftTarget = null;
             if (leftSpell != null) {
-                leftTarget = leftSpell.isGoodForTarget ? manager.getAITarget().random() : manager.getPlayerTarget().random();
+                leftTarget = leftSpell.isGoodForTarget ? manager.getAITarget().random() : manager.getPlayerTarget().random(); // 随机指定目标
                 // 最后一位为小写字母的手势是双手手势
                 leftSpellIsTwo = Character.isLowerCase(leftSpell.gesture.charAt(leftSpell.gesture.length() - 1));
             }
