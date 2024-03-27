@@ -6,7 +6,7 @@ import com.ken.spellcaster.entity.Wizard;
 import com.ken.spellcaster.effects.enchantment.AmnesiaEffect;
 import com.ken.spellcaster.spells.BaseSpell;
 
-// 手势重复技能
+// 手势重复法术
 public class AmnesiaSpell extends BaseSpell {
     public AmnesiaSpell(String gesture, ControlEntity caster) {
         super("Amnesia", gesture, SpellType.ENCHANTMENT, caster, false);

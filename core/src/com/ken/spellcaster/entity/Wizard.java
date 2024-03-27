@@ -97,10 +97,13 @@ public class Wizard extends ControlEntity {
         }
     }
 
+    // 更新控制的monster的状态
     public void updateMonster() {
         ArrayIterator<Monster> iterable = monsters.iterator();
-        while (iterable.hasNext()) {
-            if (iterable.next().isDead()) {
+        while (iterable.hasNext()) { // Monster的状态更新 死亡后移除 记得在这里加log！！
+            Monster monster = iterable.next();
+            if (monster.isDead()) {
+                manager.log(String.format("%s: %s is dead.", this, monster)); // Monster死亡后显示log
                 iterable.remove();
             }
         }

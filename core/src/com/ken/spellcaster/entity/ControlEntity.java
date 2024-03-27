@@ -17,7 +17,7 @@ public abstract class ControlEntity {
     int fakeHealth = 0;
     final int maxHealth;
     String name;
-    TurnManager manager;
+    public TurnManager manager;
     // 该实体实际控制者
     private Wizard controlWizard;
     // 初始控制者
@@ -163,6 +163,7 @@ public abstract class ControlEntity {
                 spell.action(this);
                 // log(); // 想办法在此处 每次释放技能时，能够生成正确的log
                 // 例如： PROTECTION spell + is protected + caster + from + spell.action
+                // 不用在这加 具体到Wizard子类去加就好
             }
         }
     }

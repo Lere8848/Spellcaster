@@ -5,7 +5,7 @@ import com.ken.spellcaster.spells.enchantment.*;
 
 // 基础技能类 所有技能均继承自此类
 public abstract class BaseSpell {
-    String name;
+    public String name;
     public String gesture;
     public SpellType type;
     boolean isValid = true;
@@ -53,6 +53,19 @@ public abstract class BaseSpell {
         invalid();
     }
 
+    // 状态抵御法术后发送的 Log
+    // 需要在销毁法术前调用
+    public void defendSpellLog(BaseSpell spell) {
+        if (spell.isValid()) {
+            caster.manager.log(String.format("%s: %s defended against %s.", caster, name, spell.name));
+        }
+    }
+
+    // 普通 log
+    public void log(String log) {
+        caster.manager.log(String.format("%s: %s", caster, log));
+    }
+
     // 判断是否抵消特殊技能
     // 不能用迭代器循环 否则会因迭代器套迭代器出现错误
     public boolean enchantmentNotCounter(ControlEntity target, Class<? extends BaseSpell> spellClass) {
@@ -61,6 +74,7 @@ public abstract class BaseSpell {
             BaseSpell spell = target.currentReceiveSpells.get(i);
             if ((spell instanceof AmnesiaSpell || spell instanceof CharmMonsterSpell || spell instanceof CharmPersonSpell || spell instanceof ConfusionSpell || spell instanceof ParalysisSpell || spell instanceof FearSpell) && !spell.getClass().isAssignableFrom(spellClass)) {
                 isCounter = true;
+                defendSpellLog(spell); //添加log
                 spell.invalid();
             }
         }

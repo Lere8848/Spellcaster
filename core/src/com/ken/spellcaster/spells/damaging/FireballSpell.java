@@ -35,6 +35,7 @@ public class FireballSpell extends BaseSpell {
             for (int i = 0; i < target.currentReceiveSpells.size; i++) {
                 BaseSpell spell = target.currentReceiveSpells.get(i);
                 if ((spell instanceof IceStormSpell)) {
+                    defendSpellLog(spell); // fireball 被 ice抵消 生成log
                     spell.invalid();
                 }
             }

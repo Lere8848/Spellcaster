@@ -117,9 +117,9 @@ public class AIInput {
         return count;
     }
 
-    // 从技能列表中挑选手势最长的第一个技能
+    // 从法术列表中挑选手势最长的第一个法术
 
-    // 在这里做更改，让ai每次挑选的时候不只是挑选最长的技能 加入一些随机性！！！ 重中之重！
+    // 在这里做更改，让ai每次挑选的时候不只是挑选最长的法术 加入一些随机性！！！ 重中之重！
 
 
     public static BaseSpell selectBestSpell(Array<BaseSpell> spells) {
@@ -134,14 +134,14 @@ public class AIInput {
         return bestSpell;
     }
 
-    // 获得随机的一个技能手势
+    // 获得随机的一个法术手势
     public static String genRandomGesture() {
         return SpellMap.getAllGesture().random();
     }
 
-    // 按原先手势和状态分数决策最好的技能手势
+    // 按原先手势和状态分数决策最好的法术手势
     // 手势分数：手势字符个数  这部分可以换成自己规定的分数表  更加合理精确
-    // Overlap 数量 = 技能分数 （偏好在较少的回合内便可释放的较长的技能）
+    // Overlap 数量 = 法术分数 （偏好在较少的回合内便可释放的较长的法术）
     // 在同 Overlap 数量的情况选择较长的手势
     public static String genBestGesture(String originGesture) {
         String bestGesture = null;
@@ -221,7 +221,7 @@ public class AIInput {
                 setLeftChooseLabel(rightChoose);
             }
 
-            // 受到技能效果影响而必须做出的改变 决策部分必须在这行上面
+            // 受到法术效果影响而必须做出的改变 决策部分必须在这行上面
             if (leftChooseLabel.length() == 1 && leftChooseLabel.equals(rightChooseLabel)) {
                 leftChooseLabel = leftChooseLabel.toLowerCase();
                 rightChooseLabel = rightChooseLabel.toLowerCase();
@@ -238,7 +238,7 @@ public class AIInput {
             }
             BaseSpell leftSpell = selectBestSpell(wizard.genLeftSpell(leftChooseLabel));
             BaseSpell rightSpell = selectBestSpell(wizard.genRightSpell(rightChooseLabel));
-            // 判定双手技能
+            // 判定双手法术
             boolean leftSpellIsTwo = false;
             boolean rightSpellIsTwo = false;
             // 好效果给己方  坏效果给对方   MAX MIN部分
