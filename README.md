@@ -7,7 +7,7 @@ https://www.andrew.cmu.edu/user/gc00/reviews/spellcaster.html
 版本信息：
 * JDK：openJDK17 
 * gradle: 7.5.1
-* LibGDX: 12.0.1
+* LibGDX: 1.12.0
 * Android SDK：34
 
 （此为初步版本README，记得后续更新，加上游戏规则、法术交互那几个word）
