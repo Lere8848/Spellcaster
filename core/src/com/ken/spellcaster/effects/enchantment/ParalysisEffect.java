@@ -51,7 +51,7 @@ public class ParalysisEffect extends BaseEffect {
                 log("Being inflicted with Paralysis!");
                 log("can only make the same gesture as before!");
                 log("Following gesture will be switched");
-                log("C-->F、S-->D、W-->P");
+                log("C-->F  S-->D  W-->P");
                 isTake = true;
             }
         }

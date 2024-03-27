@@ -39,8 +39,8 @@ public class TurnManager {
         isFinish = false;
         currentTurn = 1;
         lastTurn = 1;
-        player.setHealth(14);
-        AI.setHealth(14);
+        player.setHealth(15);
+        AI.setHealth(15);
         player.clearMonster();
         AI.clearMonster();
         player.clearEffect();
@@ -185,8 +185,8 @@ public class TurnManager {
                 public void run() {
                     restart();
                 }
-            }, 6);
-            log("Game Over. AI Win. 6 second after restart.");
+            }, 10);
+            log("Game Over. AI Win. 10 second after restart.");
         } else if (player.getHealth() > 0 && AI.getHealth() <= 0) {
             isFinish = true;
             Timer.schedule(new Task() {
@@ -194,8 +194,8 @@ public class TurnManager {
                 public void run() {
                     restart();
                 }
-            }, 6);
-            log("Game Over. You Win. 6 second after restart.");
+            }, 10);
+            log("Game Over. You Win. 10 second after restart.");
         } else if (player.getHealth() <= 0 && AI.getHealth() <= 0) {
             isFinish = true;
             Timer.schedule(new Task() {
@@ -203,8 +203,8 @@ public class TurnManager {
                 public void run() {
                     restart();
                 }
-            }, 6);
-            log("Game Over. No One Win. 6 second after restart.");
+            }, 10);
+            log("Game Over. No One Win. 10 second after restart.");
         } else {
             selectNextControl();
         }

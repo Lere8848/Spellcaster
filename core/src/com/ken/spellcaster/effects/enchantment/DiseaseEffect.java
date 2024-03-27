@@ -17,7 +17,7 @@ public class DiseaseEffect extends BaseEffect {
             remainCount = tmpRemain;
             //log("                                       "); 最大长度
             log("Note! Being inflicted with Disease!");
-            log("Only" + remainCount + " rounds left.");
+            log("Only " + remainCount + " rounds left.");
         }
         // 目标将在 6 回合后死亡
         if (self.getCurrentTurn() - startTurn >= 6) {
