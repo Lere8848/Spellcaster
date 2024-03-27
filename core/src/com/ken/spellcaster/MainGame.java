@@ -63,7 +63,7 @@ public class MainGame extends ApplicationAdapter {
         logLabel.setAlignment(Align.topLeft);
         leftStabButton = new GestureButton("Stab", skin, this, true);
         rightStabButton = new GestureButton("Stab", skin, this, false);
-        submitButton = new TextButton("Next", skin);
+        submitButton = new TextButton("Next", skin); // Monster作为一个独立个体 设定为拥有自己的回合 因此需要点击next来结束他的回合
 
         turnManager = new TurnManager(this, new ChangeListener() {
             @Override
