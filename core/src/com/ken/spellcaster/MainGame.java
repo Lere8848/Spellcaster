@@ -65,6 +65,7 @@ public class MainGame extends ApplicationAdapter {
         rightStabButton = new GestureButton("Stab", skin, this, false);
         submitButton = new TextButton("Next", skin); // Monster作为一个独立个体 设定为拥有自己的回合 因此需要点击next来结束他的回合
 
+        // 仍然是Observer Pattern，通过接口反映在logPanel中
         turnManager = new TurnManager(this, new ChangeListener() {
             @Override
             public void onGetLog(String log) {
@@ -75,6 +76,8 @@ public class MainGame extends ApplicationAdapter {
             }
         });
 
+        // 每次点击submit button 游戏状态更新，通过turnManager.control方法更新游戏状态，按照Main Game Loop来循环
+        // 涉及每次循环的地方
         submitButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

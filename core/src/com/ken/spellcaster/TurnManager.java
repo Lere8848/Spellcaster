@@ -125,6 +125,8 @@ public class TurnManager {
         }
     }
 
+    // 重中之重 游戏的主逻辑在这里
+    // 此处规定手势输入 法术判定等
     public boolean control(boolean isPlayer) {
         selectNextControl();
         if (isPlayer == isPlayerInput && !isFinish) {
@@ -282,6 +284,7 @@ public class TurnManager {
         return AI;
     }
 
+// 这个接口的作用是什么？
     public interface ChangeListener {
         void onGetLog(String log);
     }
