@@ -35,7 +35,8 @@ public abstract class BaseEffect {
     // 需要在销毁法术前调用
     public void defendSpellLog(BaseSpell spell) {
         if (spell.isValid()) {
-            log(String.format("Due to %s, %s has been defended.", name, spell.name));
+            log(String.format("Due to %s", name));
+            log(String.format("%s has been defended.", spell.name));
         }
     }
 
