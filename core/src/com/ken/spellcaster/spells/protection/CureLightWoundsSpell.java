@@ -13,5 +13,8 @@ public class CureLightWoundsSpell extends BaseSpell {
         super.action(target);
         // 获得一点假血
         target.setFakeHealth(1);
+        //log("                                       "); 最大长度
+        log("Buffed by CureLightWounds Spell");
+        log("Reduce 1 damages from next damage spell");
     }
 }

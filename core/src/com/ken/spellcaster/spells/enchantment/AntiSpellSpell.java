@@ -14,6 +14,9 @@ public class AntiSpellSpell extends BaseSpell {
         super.action(target);
         if (target instanceof Wizard) {
             ((Wizard) target).clearGesture();
+            //log("                                       "); 最大长度
+            log("Being inflicted with Anti-Spell! ");
+            log("All gestures made before will be erased!");
         }
     }
 }

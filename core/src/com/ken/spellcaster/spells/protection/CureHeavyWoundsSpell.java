@@ -16,5 +16,9 @@ public class CureHeavyWoundsSpell extends BaseSpell {
         target.setFakeHealth(2);
         // 消除特殊效果 - 疾病
         target.removeEffect(DiseaseEffect.class);
+        //log("                                       "); 最大长度
+        log("Buffed by CureHeavyWounds Spell");
+        log("Reduce 2 damages from next damage spell");
+        log("All effects removed!");
     }
 }

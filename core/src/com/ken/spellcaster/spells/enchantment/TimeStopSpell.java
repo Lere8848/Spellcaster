@@ -13,5 +13,8 @@ public class TimeStopSpell extends BaseSpell {
         super.action(target);
         // 立刻获得额外的回合
         target.currentTurnCount++;
+        //log("                                       "); 最大长度
+        log("Buffed by TimeStop Spell");
+        log("Gain an extra next turn!!");
     }
 }

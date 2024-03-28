@@ -14,6 +14,9 @@ public class ProtectionFromEvilSpell extends BaseSpell {
         super.action(target);
         // 这一回合和接下来的三回合 共四回合护盾效果
         target.addEffect(new ShieldEffect(4, target.getCurrentTurn(), caster));
+        //log("                                       "); 最大长度
+        log("Buffed by ProtectionFromEvil spell,");
+        log("Have Shield for next 4 turns");
     }
 }
 

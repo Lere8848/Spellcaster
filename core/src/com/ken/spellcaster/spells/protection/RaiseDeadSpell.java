@@ -24,5 +24,8 @@ public class RaiseDeadSpell extends BaseSpell {
         target.removeEffect(PoisonEffect.class);
         // 回满 ，setHealth 会自动到血量最大值
         target.setHealth(Integer.MAX_VALUE);
+        log("Buffed by RaiseDead Spell");
+        log("Gain full health!");
+        log("All bad effects removed!");
     }
 }
