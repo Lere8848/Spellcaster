@@ -29,7 +29,8 @@ public class SummonElementalSpell extends BaseSpell {
                     monster.setHealth(Integer.MAX_VALUE);
                 }
             } else {
-                ((Wizard) target).addMonster(new Monster(target.getManager(), target + "-Elemental" + ((Wizard) target).monsterNO + " ( " + (isFire ? "Fire" : "Ice") + " )", 3, 3, elementType, (Wizard) target));
+                Monster elemental = new Monster(target.getManager(), target + "-Elemental" + ((Wizard) target).monsterNO + " ( " + (isFire ? "Fire" : "Ice") + " )", 3, 3, elementType, (Wizard) target);
+                ((Wizard) target).addMonster(elemental);
             }
         }
     }

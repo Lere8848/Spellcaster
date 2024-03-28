@@ -15,7 +15,8 @@ public class SummonTrollSpell extends BaseSpell {
     public void action(ControlEntity target) {
         super.action(target);
         if (caster instanceof Wizard) {
-            ((Wizard) caster).addMonster(new Monster(caster.getManager(), caster + "-Troll" + ((Wizard) caster).monsterNO, 3, 3, ElementType.NONE, (Wizard) caster));
+            Monster troll = new Monster(caster.getManager(), caster + "-Troll" + ((Wizard) caster).monsterNO, 3, 3, ElementType.NONE, (Wizard) caster);
+            ((Wizard) caster).addMonster(troll);
         }
     }
 }

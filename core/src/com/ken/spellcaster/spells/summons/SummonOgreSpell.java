@@ -15,7 +15,8 @@ public class SummonOgreSpell extends BaseSpell {
     public void action(ControlEntity target) {
         super.action(target);
         if (caster instanceof Wizard) {
-            ((Wizard) caster).addMonster(new Monster(caster.getManager(), caster + "-Ogre" + ((Wizard) caster).monsterNO, 2, 2, ElementType.NONE, (Wizard) caster));
+            Monster ogre = new Monster(caster.getManager(), caster + "-Ogre" + ((Wizard) caster).monsterNO, 2, 2, ElementType.NONE, (Wizard) caster);
+            ((Wizard) caster).addMonster(ogre);
         }
     }
 }

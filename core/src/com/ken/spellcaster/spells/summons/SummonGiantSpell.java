@@ -15,7 +15,8 @@ public class SummonGiantSpell extends BaseSpell {
     public void action(ControlEntity target) {
         super.action(target);
         if (caster instanceof Wizard) {
-            ((Wizard) caster).addMonster(new Monster(caster.getManager(), caster + "-Giant" + ((Wizard) caster).monsterNO, 4, 4, ElementType.NONE, (Wizard) caster));
+            Monster giant = new Monster(caster.getManager(), caster + "-Giant" + ((Wizard) caster).monsterNO, 4, 4, ElementType.NONE, (Wizard) caster);
+            ((Wizard) caster).addMonster(giant);
         }
     }
 }
