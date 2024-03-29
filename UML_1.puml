@@ -1,0 +1,134 @@
+@startuml
+
+
+class com.ken.spellcaster.TurnManager {
++ MainGame game
++ Wizard Wizard
++ Wizard AI
++ int currentTurn
+...
++ void restart()
++ void prepareTurn()
++ boolean control(boolean)
++ void applyAllSpell()
++ void nextTurn()
++ void log(String)
+}
+
+
+class com.ken.spellcaster.AIInput {
+~ {static} Array<String> gesture
+~ {static} String leftTargetGesture
+~ {static} String rightTargetGesture
+~ {static} int lastLeftOverlap
+~ {static} int lastRightOverlap
++ {static} int overlap(String,String)
++ {static} BaseSpell selectBestSpell(Array<BaseSpell>)
++ {static} String genRandomGesture()
++ {static} String genBestGesture(String)
++ {static} ControlPackage searchControl(ControlEntity,TurnManager)
+}
+
+
+abstract class com.ken.spellcaster.spells.BaseSpell {
+~ String name
++ String gesture
++ SpellType type
+~ boolean isValid
++ ControlEntity caster
++ boolean isGoodForTarget
++ int mirrorCount
++ void invalid()
++ boolean isValid()
++ String toString()
++ boolean equals(Object)
++ void action(ControlEntity)
++ boolean enchantmentNotCounter(ControlEntity,Class<? extends BaseSpell>)
+}
+
+
+class com.ken.spellcaster.Monster {
+- int attack
++ ElementType type
++ void control(String,String,BaseSpell,BaseSpell,ControlEntity,ControlEntity)
+}
+
+
+
+class com.ken.spellcaster.Wizard {
++ Gesture leftGesture
++ Gesture rightGesture
++ DataChangeListener listener
+...
++ void setHealth(int)
++ void startAction()
++ void updateEffect()
++ void addMonster(Monster)
++ void updateMonster()
++ void control(String,String,BaseSpell,BaseSpell,ControlEntity,ControlEntity)
+- void controlHalf(String,BaseSpell,ControlEntity)
+}
+
+
+abstract class com.ken.spellcaster.effects.BaseEffect {
+~ String name
++ int duration
++ int startTurn
++ ControlEntity caster
++ boolean isDestroy
++ void action(ControlEntity)
++ void actionInRange(ControlEntity)
++ void action2Spell(ControlEntity,BaseSpell)
++ void actionOnTurnBegin(ControlEntity)
++ void actionOnTurnEnd(ControlEntity)
++ void removeEffect(ControlEntity)
++ String toString()
++ boolean equals(Object)
+}
+
+
+class com.ken.spellcaster.SpellMap {
++ {static} Map<String,String> gestureSpellMap
++ {static} Array<String> getGestureByType(SpellType)
++ {static} Array<String> getAllGesture()
++ {static} BaseSpell findSpell(String,String,ControlEntity)
+}
+
+
+abstract class com.ken.spellcaster.ControlEntity {
++ int currentTurnCount
+~ int health
+~ String name
+~ TurnManager manager
+...
++ void addEffect(BaseEffect)
++ void addPermanencyEffect(BaseEffect)
++ void updateEffect()
++ TurnManager getManager()
++ String toString()
++ int getCurrentTurn()
++ void control(String,String,BaseSpell,BaseSpell,ControlEntity,ControlEntity)
+
+}
+
+
+class com.ken.spellcaster.MainGame {
+~ Stage stage
+~ Skin skin
++ Label leftHealthLabel
++ Label leftGestureLabel
++ List<Monster> leftMonsterList
+...
++ void create()
++ void render()
++ void resize(int,int)
++ void dispose()
+}
+
+
+com.ken.spellcaster.ControlEntity <|-- com.ken.spellcaster.Monster
+com.ken.spellcaster.ControlEntity <|-- com.ken.spellcaster.Wizard
+
+com.badlogic.gdx.ApplicationAdapter <|-- com.ken.spellcaster.MainGame
+
+@enduml
