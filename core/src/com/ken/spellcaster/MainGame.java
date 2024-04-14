@@ -69,7 +69,7 @@ public class MainGame extends ApplicationAdapter {
         turnManager = new TurnManager(this, new ChangeListener() {
             @Override
             public void onGetLog(String log) {
-                logLabel.setText(logLabel.getText().append(log).append("\n"));
+                logLabel.setText(logLabel.getText().append(log).append("\n")); // 每次log变化 都会更新在ui界面上
                 logLabel.invalidate();
                 logPane.invalidate();
                 logPane.scrollTo(0, -1, 0, 0);
@@ -91,6 +91,7 @@ public class MainGame extends ApplicationAdapter {
         });
 
         turnManager.getPlayer().setListener(new DataChangeListener() {
+            // 当健康值等数值变化时更新UI标签
             @Override
             public void onHealthChange(int health) {
                 leftHealthLabel.setText("Your Health: " + health);
@@ -118,6 +119,7 @@ public class MainGame extends ApplicationAdapter {
         });
 
         turnManager.getAI().setListener(new DataChangeListener() {
+            // 当健康值等数值变化时更新UI标签
             @Override
             public void onHealthChange(int health) {
                 rightHealthLabel.setText("AI Health: " + health);

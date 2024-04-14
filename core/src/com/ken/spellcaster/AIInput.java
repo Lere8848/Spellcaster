@@ -6,6 +6,8 @@ import com.ken.spellcaster.entity.Monster;
 import com.ken.spellcaster.entity.Wizard;
 import com.ken.spellcaster.spells.BaseSpell;
 
+import java.util.Random;
+
 // AI 类
 // 用于辅助 CPU 生成决策
 public class AIInput {
@@ -24,7 +26,7 @@ public class AIInput {
 
         // Monster 专用
         public ControlPackage(ControlEntity rightTarget) {
-            this.rightTarget = rightTarget;
+            this.rightTarget = rightTarget; // 用于Monster选定目标 所有Monster默认右手目标为攻击目标
         }
 
         // Wizard 专用
@@ -75,7 +77,7 @@ public class AIInput {
                 if (!except.contains(str)) {
                     leftChooseLabel = str;
                 } else {
-                    leftChooseLabel = "W";
+                    leftChooseLabel = "W"; // 不让AI随机出P，否则可能会导致A投降
                 }
             }
         }
@@ -89,7 +91,7 @@ public class AIInput {
                 String except = "CDFScdfs";
                 if (!except.contains(str)) {
                     rightChooseLabel = str;
-                }
+                } // 直接skip 不出手势了
             }
         }
     }
@@ -123,15 +125,51 @@ public class AIInput {
 
 
     public static BaseSpell selectBestSpell(Array<BaseSpell> spells) {
-        int maxPoint = -1;
-        BaseSpell bestSpell = null;
+        // int maxPoint = -1;
+        BaseSpell first = null, second = null, third = null;
+        int firstLength = -1, secondLength = -1, thirdLength = -1;
+
+        // 遍历法术，找出手势长度最长的前三个
         for (BaseSpell spell : spells) {
-            if (spell.gesture.length() > maxPoint) {
-                bestSpell = spell;
-                maxPoint = spell.gesture.length();
+            int currentLength = spell.gesture.length();
+            if (currentLength > firstLength) {
+                // 更新前三名
+                third = second;
+                thirdLength = secondLength; // 2后移一位到3
+
+                second = first;
+                secondLength = firstLength; // 1后移一位到2
+
+                first = spell;
+                firstLength = currentLength;
+
+            } else if (currentLength > secondLength) {
+                third = second;
+                thirdLength = secondLength;
+
+                second = spell;
+                secondLength = currentLength;
+
+            } else if (currentLength > thirdLength) {
+                third = spell;
+                thirdLength = currentLength;
+
             }
         }
-        return bestSpell;
+
+        // introduce randomness
+        Random rand = new Random();
+        int choice = rand.nextInt(100);  // 生成一个0到99的随机数
+        if (choice < 60) {
+            // 60% choose first
+            return first;
+        } else if (choice < 90) {
+            // 30% Second
+            return second;
+        } else {
+            // 10% Third
+            return third;
+        }
     }
 
     // 获得随机的一个法术手势
@@ -147,7 +185,7 @@ public class AIInput {
         String bestGesture = null;
         int bestGestureOverlap = 1;
         int bestGestureLength = 0;
-        for (String spellGesture : SpellMap.getAllGesture()) {
+        for (String spellGesture : SpellMap.getAllGesture()) { // 遍历 查看当前Gesture与 Spell的匹配程度
             int overlap = overlap(originGesture, spellGesture);
             // 只有在还未满足手势的情况下考虑
             if (overlap < spellGesture.length()) {
