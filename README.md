@@ -79,7 +79,7 @@ Different combinations of gesture sequences can cast different spells, for examp
 
 *ENCHANTMENT SPELL*: These spells have the ability to apply a variety of effects, such as limiting the opponent's gesture choices, gaining an extra turn, and so on.
 
-*Monsters*: Monsters are summoned by Summon spells, and have their own attack power and health point; their target is chosen by the controller.
+**Monsters**: Monsters are summoned by Summon spells, and have their own attack power and health point; their target is chosen by the controller.
 
 ### Game Mechanics
 **Turn-based**: Spellcaster is a turn-based game. Each player takes a turn. During each turn, the wizard can choose one gesture for each of the left and right hands. After several turns, the left and right hands will each form a different sequence of gestures, which may form a spell. An example of a spell formation is shown below:
