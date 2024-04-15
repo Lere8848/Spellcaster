@@ -6,7 +6,7 @@ import com.ken.spellcaster.spells.BaseSpell;
 // 专为匕首设计的技能 将stab视为一个spell
 public class StabSpell extends BaseSpell {
     public StabSpell(ControlEntity caster) {
-        super("Stab", "K", SpellType.DAMAGING, caster, false);
+        super("Stab", "Wang Yukai", SpellType.DAMAGING, caster, false);
     }
 
     @Override
