@@ -22,12 +22,11 @@ In the implementation, The specific environment configuration version is as foll
 
 I’ve now provided a runnable `exe` program along with the necessary `jre` folder. After downloading, the program should run directly:
 
-1. **Download**: Go to the project’s [latest Release page](https://github.com/Lere8848/Spellcaster/releases/latest) and download the `Spellcaster_ver_0.2.3.zip` file.
+1. **Download**: Go to the project’s [latest Release page](https://github.com/Lere8848/Spellcaster/releases/latest) and download the `.zip` file.
 2. **Extract**: Unzip the downloaded `.zip` file to any location, ensuring that `Spellcaster_ver_0.2.3.exe` and the `jre` folder are in the same directory.
 3. **Run**: Double-click `Spellcaster_ver_0.2.3.exe` to start the game.
 
 > **Note**: Make sure not to move or delete the `jre` folder; otherwise, the program may not run correctly.
-
 
 ## UI Introduction and Operation Guide
 
