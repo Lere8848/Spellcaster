@@ -14,9 +14,20 @@ In the implementation, The specific environment configuration version is as foll
 * **LibGDX engine version**: 1.12.1,
 * **API used for the Android virtual machine**: API 34.
 
-## How to run the code?
+## How to run the code in IDE?
 1. **Installation**: Clone the repository and compile the Java source files using Gradle.
 2. **Run the Desktop game**: Run `desktop/src/com/ken/spellcaster/DesktopLauncher.java` to run the game on Desktop.
+
+## How to Run the Executable? (Just like a real game!)
+
+I’ve now provided a runnable `exe` program along with the necessary `jre` folder. After downloading, the program should run directly:
+
+1. **Download**: Go to the project’s [latest Release page](https://github.com/Lere8848/Spellcaster/releases/latest) and download the `Spellcaster_ver_0.2.3.zip` file.
+2. **Extract**: Unzip the downloaded `.zip` file to any location, ensuring that `Spellcaster_ver_0.2.3.exe` and the `jre` folder are in the same directory.
+3. **Run**: Double-click `Spellcaster_ver_0.2.3.exe` to start the game.
+
+> **Note**: Make sure not to move or delete the `jre` folder; otherwise, the program may not run correctly.
+
 
 ## UI Introduction and Operation Guide
 
@@ -27,6 +38,51 @@ In the implementation, The specific environment configuration version is as foll
 1. Select the left hand and right hand **gestures**, respectively.
 2. Select the **spells** and **targets** to be released by the left and right hands (if applicable).
 3. Click the **Next** button to enter the next turn.
+
+## Spellcaster game rule explanation
+In Spellcaster, the player needs to choose gestures for both hands each turn, and use the sequence of gestures combined over multiple turns to form a spell. Deal damage and effects by casting these spells on the opponent to win.
+
+### Basic Elements
+
+**Wizard**: The player takes on the role of a wizard in the game, with an initial 15 health point. As a wizard, the player has the ability to cast spells independently with each hand, as well as powerful spells that require both hands to work together. During each turn, the player is able to make a gesture with each of the left and right hands, directly stab opponents (physically deal 1 damage) or choose to do nothing.
+
+**Gestures**: There are three types of gestures that the player can perform, including five one-handed gestures: fingers (`F`), palm (`P`), snap (`S`), wave (`W`) and digit pointing (`D`); one two-handed gesture (i.e., both hands must make the same choice): clap (`C`); and `stab` (a physical attack that causes 1 damage), and `skip` (doing nothing).
+
+Different combinations of gesture sequences can cast different spells, for example: three consecutive turns of fingers (`F`) can cast *ParalysisSpell* (`F-F-F`) (which restricts the opponent's gesture choices for the next turn).
+
+**Spells**: In Spellcaster, spells are classified into 4 types:
+
+*PROTECTION SPELL*: This class of spells is mostly defensive effect, capable of applying shields, healing or counter damage.
+
+*SUMMON SPELL*: This is a special class of spells that summon different Monsters.
+
+*DAMAGING SPELL*: This type of spell is capable of dealing damage (to a wizard or a monster). Some damaging spells have special effects, such as: FireBallSpell instantly kills Ice Elemental (a monster) in addition to dealing 5 points of damage.
+
+*ENCHANTMENT SPELL*: These spells have the ability to apply a variety of effects, such as limiting the opponent's gesture choices, gaining an extra turn, and so on.
+
+**Monsters**: Monsters are summoned by Summon spells, and have their own attack power and health point; their target is chosen by the controller.
+
+### Game Mechanics
+**Turn-based**: Spellcaster is a turn-based game. Each player takes a turn. During each turn, the wizard can choose one gesture for each of the left and right hands. After several turns, the left and right hands will each form a different sequence of gestures, which may form a spell. An example of a spell formation is shown below:
+
+<div align="center">
+  <img src="Figure/gesture2Spell.jpg" alt="This is how gestures form a spell." title="This is how gestures form a spell" width="500"/>
+</div>
+
+**Spell Interaction**: Spells can interact with each other in different ways. For example, most spell damage can be defended by *ShieldSpell*, or can be countered by *CureLightWoundsSpell*. Also, some of the Enchantment Spell's effects are invalidated by the *RemoveEnchantmentSpell*. The following figure shows the *ShieldSpell* interaction example：
+
+<div align="center">
+  <img src="Figure/Interaction.jpg" alt="This is the Interaction." title="This is the Interaction" width="600"/>
+</div>
+
+**Spell Overlap Mechanism**: This is one of the core mechanics in Spellcaster, and can be very strategic. Each spell requires a different sequence of gestures. If the gesture sequences required for two spells have overlap, players can share these gestures when casting the spells consecutively without needing to input them again. That is, certain parts of a gesture sequence can simultaneously belong to the sequences of different spells.
+
+For example, *ConfusionSpell* sequence is `D-S-F`, while *SummonGoblinSpell* sequence is `S-F-W`, then by choosing the `W` gesture (which creates `D-S-F-W`) on the next turn after casting ConfusionSpell, *SummonGoblinSpell* can be cast directly. The following figure shows the effect of Overlap
+
+<div align="center">
+  <img src="Figure/Overlap.jpg" alt="This is how overlap works." title="This is how overlap works" width="500"/>
+</div>
+
 
 ## Code Structure
 
@@ -57,42 +113,3 @@ Note: To add a new spell, simply have the new spell inherit `BaseSpell`, its eff
 A UML diagram is shown below:
 
 ![UML](Figure/UML_1.png "This is the UML diagram.")
-
-## Spellcaster game rule explanation
-In Spellcaster, the player needs to choose gestures for both hands each turn, and use the sequence of gestures combined over multiple turns to form a spell. Deal damage and effects by casting these spells on the opponent to win.
-
-### Basic Elements
-
-**Wizard**: The player takes on the role of a wizard in the game, with an initial 15 health point. As a wizard, the player has the ability to cast spells independently with each hand, as well as powerful spells that require both hands to work together. During each turn, the player is able to make a gesture with each of the left and right hands, directly stab opponents (physically deal 1 damage) or choose to do nothing.
-
-**Gestures**: There are three types of gestures that the player can perform, including five one-handed gestures: fingers (`F`), palm (`P`), snap (`S`), wave (`W`) and digit pointing (`D`); one two-handed gesture (i.e., both hands must make the same choice): clap (`C`); and `stab` (a physical attack that causes 1 damage), and `skip` (doing nothing).
-
-Different combinations of gesture sequences can cast different spells, for example: three consecutive turns of fingers (`F`) can cast *ParalysisSpell* (`F-F-F`) (which restricts the opponent's gesture choices for the next turn).
-
-**Spells**: In Spellcaster, spells are classified into 4 types:
-
-*PROTECTION SPELL*: This class of spells is mostly defensive effect, capable of applying shields, healing or counter damage.
-
-*SUMMON SPELL*: This is a special class of spells that summon different Monsters.
-
-*DAMAGING SPELL*: This type of spell is capable of dealing damage (to a wizard or a monster). Some damaging spells have special effects, such as: FireBallSpell instantly kills Ice Elemental (a monster) in addition to dealing 5 points of damage.
-
-*ENCHANTMENT SPELL*: These spells have the ability to apply a variety of effects, such as limiting the opponent's gesture choices, gaining an extra turn, and so on.
-
-**Monsters**: Monsters are summoned by Summon spells, and have their own attack power and health point; their target is chosen by the controller.
-
-### Game Mechanics
-**Turn-based**: Spellcaster is a turn-based game. Each player takes a turn. During each turn, the wizard can choose one gesture for each of the left and right hands. After several turns, the left and right hands will each form a different sequence of gestures, which may form a spell. An example of a spell formation is shown below:
-
-![UML](Figure/gesture2Spell.jpg "This is how gestures form a spell.")
-
-**Spell Interaction**: Spells can interact with each other in different ways. For example, most spell damage can be defended by *ShieldSpell*, or can be countered by *CureLightWoundsSpell*. Also, some of the Enchantment Spell's effects are invalidated by the *RemoveEnchantmentSpell*. The following figure shows the *ShieldSpell* interaction example：
-
-![UML](Figure/Interaction.jpg "This is the Interaction.")
-
-**Spell Overlap Mechanism**: This is one of the core mechanics in Spellcaster, and can be very strategic. Each spell requires a different sequence of gestures. If the gesture sequences required for two spells have overlap, players can share these gestures when casting the spells consecutively without needing to input them again. That is, certain parts of a gesture sequence can simultaneously belong to the sequences of different spells.
-
-For example, *ConfusionSpell* sequence is `D-S-F`, while *SummonGoblinSpell* sequence is `S-F-W`, then by choosing the `W` gesture (which creates `D-S-F-W`) on the next turn after casting ConfusionSpell, *SummonGoblinSpell* can be cast directly. The following figure shows the effect of Overlap
-
-![UML](Figure/Overlap.jpg "This is how overlap works.")
-
